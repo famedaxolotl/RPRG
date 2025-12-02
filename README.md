@@ -1,0 +1,5 @@
+# R Pogramming
+## Term-II IPM
+
+Codefiles and notes of the R Programming course. Please create an issue in case of bugs, errors etc.
+Create pull requests if you want to add to the codebase
