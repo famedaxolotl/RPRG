@@ -28,7 +28,7 @@
               "type": "markdown",
               "state": {
                 "file": "ggplot2 notes.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
@@ -186,6 +186,10 @@
   },
   "active": "2db9875d69221542",
   "lastOpenFiles": [
+    "plot1.png",
+    "economics_data.xlsx",
+    "README.md",
+    "ggplot2 notes.md",
     "plots/plot2.pdf",
     "plots/plot2.jpg",
     "plots",
@@ -193,9 +197,7 @@
     "plot2.jpg",
     "RPRG_1.R",
     "test.R",
-    "README.md",
     "Welcome.md",
-    "ggplot2 notes.md",
     "desktop.ini"
   ]
 }
