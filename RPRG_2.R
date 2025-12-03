@@ -13,19 +13,21 @@ z=c(1,2,4,8,16)
 p=c(5,4,3,2,1)
 
 # This plot function displays the arguments which it may take
+# x and y are obviously the data
 # 'main' is the title, blank by default
 # 'xlab' and 'ylab' are the x and y axis labels
 # 'cex' sets the size of the data plot points
 # 'col' sets the colour
 # 'pch' is the code of the type of the point (0-box, 1-circle, 2-triangle etc)
 # 'type' takes options 'p', 'l' and 'b', which stand for 'show points only', 'show line only'
-# or 'show both'
+# or 'show both' respectively
 # 'lwd' is the line width
 # 'lty' is the line type (full, dotted, dashes etc)
 plot(x,y, main="Main Title", xlab="x-label", ylab="y-label",
      col='blue', cex=2, pch=1, type='b', lwd=2, lty=3)
 # subsequently, we can add onto the previous plot with the line() function
 # this function uses the same 'main', 'xlab' and 'ylab' as its parent plot() function
+# other parameters are subject to change
 lines(x, p, col='red', cex=3, pch=1, type='b', lwd=2, lty=3)
 
 
@@ -33,15 +35,15 @@ lines(x, p, col='red', cex=3, pch=1, type='b', lwd=2, lty=3)
 # PIE CHART
 
 # First, we obtain the data values
-p1 <- c(10,20,30,40)
+p1 = c(10,20,30,40)
 
 # Then, we obtain a list of labels
-myLabels <- c('A','B','C','D')
+myLabels = c('A','B','C','D')
 
 # Then, we obtain a list of colours
-myColors <- c('blue','green','red','yellow')
+myColors = c('blue','green','red','yellow')
 
-# 'p1' takes the data, 'init.angle' sets the deg from which the first slice begins
+# 'p1' is the data, 'init.angle' sets the deg from which the first slice begins
 pie(p1, init.angle = 0, label = myLabels, main='Main Title', col=myColors)
 # subsequently, we can add a legend()
 # the first argument of the legend will be the location
@@ -50,7 +52,7 @@ legend("bottomleft", myLabels, fill = myColors)
 
 # BARPLOT
 barplot(p1, names.arg = myLabels, col=myColors)
-# 'horiz' if set to T, sets the barplot horzontally. False by default
+# 'horiz' if set to T, sets the barplot horizontally. False by default
 # 'density' is the shading of the lines
 barplot(p1, names.arg = myLabels, col=myColors, density=100, horiz=TRUE)
 
@@ -84,6 +86,7 @@ write_xlsx(mpg, "mpg_data.xlsx")
 # Data; Aesthetic mapping; Geom function {geom_point(), geom_histogram(), geom_line()}
 # 'ggplot() takes data and aesthetics, which is the aes() function, which takes x and y points
 # add a geom to it, plot points in this case
+# for geom_point, the first two arguments aes() takes are the x and y axis data
 ggplot(mpg, aes(x = displ, y = hwy)) + geom_point()
 ggplot(mpg, aes(cty, hwy)) + geom_point()
 
@@ -121,6 +124,8 @@ write_xlsx(economics, "economics_data.xlsx")
 #line plot geom
 ggplot(economics, aes(date, unemploy)) + geom_line()
 
+#other types of plots
+#run and see ig ¯\_(ツ)_/¯
 ggplot(mpg, aes(drv, hwy)) + geom_point()
 ggplot(mpg, aes(drv, hwy)) + geom_jitter()
 ggplot(mpg, aes(drv, hwy)) + geom_boxplot()
@@ -130,5 +135,14 @@ ggplot(mpg, aes(drv, hwy)) + geom_violin()
 
 # In order to save, add a xlab and ylab to the plot, save it to a variable then use ggsave
 p = ggplot(mpg, aes(cty, hwy)) + geom_point() + xlab("city (mpg)") + ylab("highway (mpg)")
-# ggsave() takes output file name, widtha and height and units for measurement ()
+# ggsave() takes output file name, the plot and the width and height and units for measurement ()
 ggsave("plot1.png", p, width = 5, height = 5, units='in')
+
+# in the following plots, by assigning shape, colour and size to different categories,
+#each category is represented in different ways
+# FOR EXAMPLE: the below plot has varied sizes and shapes of for 'drv' and 'cyl'
+# If you want a constant colour or size put it in the geom (see last 2 examples)
+ggplot(mpg, aes(displ, hwy, colour=class, shape=drv, size=cyl)) + geom_point()
+ggplot(mpg, aes(displ, hwy, colour=class, shape=drv)) + geom_point(size=2)
+ggplot(mpg, aes(displ, hwy, shape=drv)) + geom_point(colour='blue', size=4)
+

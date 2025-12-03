@@ -2,5 +2,9 @@
 
 ## Term-II IPM
 
-Codefiles and notes of the R Programming course. Please create an issue in case of bugs, errors etc.
-Create pull requests if you want to add to the codebase
+Comprehensive database of codefiles and their explanations for the RPRG course. Please reach out via the Issues tab or create pull requests if you have anything to contribute.
+
+NOTE: The entirety of ggplot2 will be put in RPRG_2.R for completeness.
+
+made with <3
+~ rishav

@@ -1,6 +1,9 @@
 test.R
 plots/*
-.obsidian
+.obsidian/*
+.RData
+.Rhistory
 economics_data.xlsx
 mpg_data.xlsx
 plot1.png
+XLX.md
