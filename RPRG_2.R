@@ -70,8 +70,21 @@ gc()
 # ╚██████╔╝╚██████╔╝██║     ███████╗╚██████╔╝   ██║   ███████╗
 #  ╚═════╝  ╚═════╝ ╚═╝     ╚══════╝ ╚═════╝    ╚═╝   ╚══════╝
 
+#install through GUI or use install.packages("ggplot2") once
+
 # import ggplot2
 library(ggplot2)
+
+#mpg is a dataset built into the ggplot2 package
+# first six rows of data
+head(mpg)
+#statistical summary (mean, median, mode etc)
+summary(mpg)
+#shows structure
+structure(mpg)
+#colnames of mpg
+colnames(mpg)
+
 # use this to print ALL rows of mpg data
 print(mpg, n = nrow(mpg))
 
@@ -128,7 +141,9 @@ ggplot(economics, aes(date, unemploy)) + geom_line()
 #run and see ig ¯\_(ツ)_/¯
 ggplot(mpg, aes(drv, hwy)) + geom_point()
 ggplot(mpg, aes(drv, hwy)) + geom_jitter()
+#box-and-whisker plot of drivetrain data
 ggplot(mpg, aes(drv, hwy)) + geom_boxplot()
+#more detailed, hence more precise
 ggplot(mpg, aes(drv, hwy)) + geom_violin()
 
 #use ggsave(<name>) to save the last plot
