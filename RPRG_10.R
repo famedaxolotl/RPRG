@@ -275,7 +275,7 @@ stocks25 <- stocks25 |>
   mutate(stdate=dmy(stdate))
 
 priceDF <- stocks25 |> select(code, stdate, clprice)
-priceMF <- priceDF |>
+priceDF <- priceDF |>
   pivot_wider(
     names_from = code,
     values_from = clprice
@@ -283,19 +283,54 @@ priceMF <- priceDF |>
 
 
 ########## calculate returns ##########
-tret<- as.matrix(priceDF[2:51])
-for (c in 1:dim(tret)[2]){
-  rstart<-1
-  for (r in 1:dim(tret)[1]){
-    if (is.na(tret[r,c])) {} else {break}
+# Convert the price columns (2 to 51) into a numeric matrix.
+# Column 1 is the date (stdate), so we exclude it.
+tret <- as.matrix(priceDF[2:51])
+
+# Loop over each asset/series (each column in the matrix)
+for (c in 1:dim(tret)[2]) {
+  
+  # rstart will store the row index of the LAST leading NA
+  # (i.e., where valid data begins after missing values at the top)
+  rstart <- 1
+  
+  # Scan downward from the top to find where the first non-NA value appears
+  for (r in 1:dim(tret)[1]) {
+    
+    # If the current element is NA, do nothing and keep scanning
+    if (is.na(tret[r, c])) {
+      # do nothing
+    } else {
+      # Stop scanning as soon as we hit the first non-NA
+      break
+    }
+    
+    # Update rstart to the most recent NA row encountered
+    # so rstart ends up being the last NA row before real data begins
     rstart <- r
   }
-  for (r in dim(tret)[1]:(rstart+1)){
-    tret[r,c] <- tret[r,c]/tret[r-1,c]
-    if (is.na(tret[r,c])) tret[r,c] <- 1
+  
+  # Now loop BACKWARDS from the bottom of the column up to (rstart + 1)
+  # We go backwards so we don’t overwrite values that are still needed
+  # to compute returns for earlier rows.
+  for (r in dim(tret)[1]:(rstart + 1)) {
+    
+    # Convert price into gross return:
+    # return_t = price_t / price_(t-1)
+    tret[r, c] <- tret[r, c] / tret[r - 1, c]
+    
+    # If the result becomes NA (usually because price_(t-1) was NA),
+    # replace it with 1, meaning "no change" (0% return).
+    if (is.na(tret[r, c])) {
+      tret[r, c] <- 1
+    }
   }
-  tret[rstart,c] <- NA
+  
+  # The first usable row after leading NAs has no previous day to divide by,
+  # so we force it back to NA (return cannot be computed there).
+  tret[rstart, c] <- NA
 }
+
 rm(r,c,rstart)
 
 tretDF <- as.data.frame(tret)
